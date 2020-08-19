@@ -28,9 +28,9 @@ markComment: >
   for your contributions.
 
 # Comment to post when removing the stale label.
-unmarkComment: >
-  This issue has been automatically marked as not stale anymore due to the recent activity.
 
+Comment: [60, 16]>
+cannot open file:///c%3A/Users/simon/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json. Detail: Unable to read file 'c:\Users\simon\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json' (Error: Unable to resolve non-existing file 'c:\Users\simon\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json')
 # Comment to post when closing a stale Issue or Pull Request.
 closeComment: >
   This issue has been automatically closed because it had not recent activity during the stale period.
@@ -52,4 +52,13 @@ only: !0
 # issues:
 #   exemptLabels:
 #     - confirmed
-#rjmholt::.(improve-test-connection-tests) [8, 63]
+#rjmholt::.(improve-test-connection-tests) [8, 63]{
+	"resource": "/C:/compose/.github/stale.yml",
+	"owner": "cSpell",
+	"severity": 2,
+	"message": "\"unmark\": Unknown word.",
+	"source": "cSpell",
+	"startLineNumber": 31,
+	"startColumn": 1,
+	"endLineNumber": 31,
+	"endColumn": 7 [31, 1]

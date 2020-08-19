@@ -2,6 +2,7 @@
     **//azure.microsoft.com/en-us/free/?utm_source=campaign&utm_campaign=vscode-azure-account&mktingSource=vscode-azure-account  "version": "0.2.0",
     "configurations": [
         
+
         {
             "name": "Launch for Azure Sphere Applications (gdb)",
             "type": "azurespheredbg",
@@ -365,4 +366,4 @@
     "": {},
     "": [],
     "": {}
-}
+9+, A}[367, 5]
