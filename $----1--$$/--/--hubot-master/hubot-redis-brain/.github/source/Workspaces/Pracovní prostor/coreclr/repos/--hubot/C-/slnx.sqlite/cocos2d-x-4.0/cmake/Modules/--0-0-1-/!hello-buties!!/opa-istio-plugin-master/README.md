@@ -1,0 +1,2 @@
+# opa-istio-plugin-master
+ -- --
