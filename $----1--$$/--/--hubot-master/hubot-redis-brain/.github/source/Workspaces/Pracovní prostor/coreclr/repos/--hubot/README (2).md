@@ -1,2 +1,0 @@
-# --hubot
--%$hubot
