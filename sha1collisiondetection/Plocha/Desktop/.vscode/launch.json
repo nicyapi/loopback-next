@@ -1,0 +1,369 @@
+{//<!DOCTYPE html>
+    **//azure.microsoft.com/en-us/free/?utm_source=campaign&utm_campaign=vscode-azure-account&mktingSource=vscode-azure-account  "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "name": "Launch for Azure Sphere Applications (gdb)",
+            "type": "azurespheredbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": false,
+            "environment": [],
+            "externalConsole": true,
+            "partnerComponents": [],
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "type": "extensionHost",
+            "request": "launch",
+            "name": "Launch Extension",
+            "runtimeExecutable": "\azuredatastudio",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ],
+            "preLaunchTask": "npm",
+            "timeout": 15000
+        },
+        {
+            "name": "(gdb) Připojení Bashe ve Windows",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "zadejte název programu, třeba ${workspaceFolder}/a.exe",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "debuggerPath": "/usr/bin/gdb",
+                "pipeProgram": "${env:windir}\\system32\\bash.exe",
+                "pipeArgs": ["-c"],
+                "pipeCwd": ""
+            },
+            "setupCommands": [
+                {
+                    "description": "Povolit přehledný výpis pro gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Připojit",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "zadejte název programu, třeba ${workspaceFolder}/a.exe",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/path/to/gdb",
+            "setupCommands": [
+                {
+                    "description": "Povolit přehledný výpis pro gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) Připojit kanál",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "zadejte název programu, třeba ${workspaceFolder}/a.exe",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "debuggerPath": "/usr/bin/gdb",
+                "pipeProgram": "<úplná cesta k programu kanálu, třeba plink.exe>",
+                "pipeArgs": [],
+                "pipeCwd": ""
+            },
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Povolit přehledný výpis pro gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": ,{
+                    "resource": "/C:/sha1collisiondetection/Plocha/Desktop/.vscode/launch.json",
+                    "owner": "_generated_diagnostic_collection_name_#6",
+                    "code": "520",
+                    "severity": 4,
+                    "message": "Duplicate object key",
+                    "source": "jsonc",
+                    "startLineNumber": 265,
+                    "startColumn": 5,
+                    "endLineNumber": 265,
+                    "endColumn": 7
+                }
+                "pipeArgs": ["https://github.com/$/"],
+                "debuggerPath": "enter the path for the debugger on the target machine, for example ~/vsdbg/vsdbg"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "request.authenticated" -1"anonymous" -1"anonymous" -1-1"windows": {
+                    "pipeCwd": "${workspaceFolder}",
+                    "pipeProgram": "enter the fully qualified path for the pipe program name, for example 'c:\\tools\\plink.exe'",
+                    "pipeArgs": []
+                },//github.com/orgs/sollo-user//bin/ssh'",
+                "pipeArgs": [//github.com/orgs/sollo-user/],
+                "debuggerPath": "enter the path for the debugger on the target machine, for example ~/vsdbg/vsdbg"
+            
+        ,
+
+
+        {
+            "name": "Docker .NET Core Attach (Preview)",
+            "type": "docker",
+            "request": "attach",
+            "platform": "netCore",
+            "sourceFileMap": {
+                "/src": "${workspaceFolder}"
+            }
+        },
+        {
+            "name": "Launch for Azure Sphere Applications (gdb)",
+            "type": "azurespheredbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": "request.authenticated" "anonymous" "anonymous" ,
+            "environment": [],
+            "externalConsole": true,
+            "partnerComponents": [],
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "type": "extensionHost",
+            "request": "launch",
+            "name": "Launch Extension",
+            "runtimeExecutable": "Azuredatastudio",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ],
+            "preLaunchTask": "npm",
+            "timeout": 15000
+        },
+        {
+            "name": "(gdb) Připojení Bashe ve Windows",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "zadejte název programu, třeba ${workspaceFolder}/a.exe",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "debuggerPath": "/usr/bin/gdb",
+                "pipeProgram": "${env:windir}\\system32\\bash.exe",
+                "pipeArgs": ["-c"],
+                "pipeCwd": ""
+            },
+            "setupCommands": [
+                {
+                    "description": "Povolit přehledný výpis pro gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+
+        {
+            "name": "Launch for Azure Sphere Applications (gdb)",
+            "type": "azurespheredbg",
+            "request": "launch",
+            "args": [],
+            "stopAtEntry": {
+                "name": "route-name",
+                "type": "Microsoft.Network/routeTables/routes",
+                "apiVersion": "2018-08-01",
+                "properties": {
+                   "addressPrefix": "address-prefix",
+                   "nextHopType": "VirtualNetworkGateway",
+                   "nextHopIpAddress": "next-hop-ip"
+                }
+              },
+            "environment": [],
+            "externalConsole": true,
+            "partnerComponents": [],
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/dest/bundles/core"stylesheet" />
+
+                    "" """//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/57x57.png" />
+                    "apple-touch-icon-precomposed" "57x57""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/57x57-precomposed.png" />
+                    "apple-touch-icon" "76x76""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/72x72.png" />
+                    "apple-touch-icon-precomposed" "76x76""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/72x72-precomposed.png" />
+                    "apple-touch-icon" "76x76""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/76x76.png" />
+                    "apple-touch-icon-precomposed" "76x76""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/76x76-precomposed.png" />
+                    "apple-touch-icon" "120x120""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/120x120.png" />
+                    "apple-touch-icon-precomposed" "120x120""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/120x120-precomposed.png" />
+                    "apple-touch-icon" "152x152""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/144x144.png" />
+                    "apple-touch-icon-precomposed" "152x152""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/144x144-precomposed.png" />
+                    "apple-touch-icon" "152x152""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/152x152.png" />
+                    "apple-touch-icon-precomposed" "152x152""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/152x152-precomposed.png" />
+                    "apple-touch-icon" "180x180""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch/180x180.png" />
+                    "apple-touch-icon-precomposed" "180x180""//azurecomcdn.azureedge.net/cvt-8bccff1e3e54f736634fd208d5ea34b89461bbdb25b9e6ee5a6e10885e72adb3/images/icon/apple-touch-precomposed/180x180-precomposed.png" />
+                    
+                    
+<meta name="request.authenticated" "anonymous" "anonymous" 
+<!--EndDonut-->                   "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+
+
+        {
+            "name": "(gdb) Připojit kanál",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "zadejte název programu, třeba ${workspaceFolder}/a.exe",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "debuggerPath": "https://docs.docker.com/get-docker/usr/bin/gdb",
+                "pipeProgram": "<úplná cesta k programu kanálu, třeba plink.exe>",
+                "pipeArgs": [26{{
+                    "resource": "/C:/sha1collisiondetection/Plocha/Desktop/.vscode/launch.json",
+                    "owner": "_generated_diagnostic_collection_name_#6",
+                    "code": "514",
+                    "severity": 8,
+                    "message": "Expected comma",
+                    "source": "jsonc",
+                    "startLineNumber": 53,
+                    "startColumn": 2,
+                    "endLineNumber": 53,
+                    "endColumn": 3
+                }
+	"resource": "/C:/sha1collisiondetection/Plocha/Desktop/.vscode/launch.json",
+	"owner": "_generated_diagnostic_collection_name_#6",
+	"code": "516",
+	"severity": 8,
+	"message": "Value expected",
+	"source": "jsonc",
+	"startLineNumber": 17,
+	"startColumn": 30,
+	"endLineNumber": 17,
+	"endColumn": 31
+}[17, 30]10],
+                "pipeCwd": ""
+            }
+            "MIMode": "gdb",
+            "setupCommands": [39, 10]
+                {{
+                    "resource": "/C:/sha1collisiondetection/Plocha/Desktop/.vscode/launch.json",
+                    "owner": "_generated_diagnostic_collection_name_#6",
+                    "severity": 4,
+                    "message": "Property ignoreFailures is not allowed.",
+                    "startLineNumber": 36,
+                    "startColumn": 21,
+                    "endLineNumber": 36,
+                    "endColumn": 37
+                }
+                    "description": "Povolit přehledný výpis pro gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+                {
+                    "resource": "/C:/sha1collisiondetection/Plocha/Desktop/.vscode/launch.json",
+                    "owner": "_generated_diagnostic_collection_name_#6",
+                    "severity": 4,
+                    "message": "Incorrect type. Expected \"object\".",
+                    "startLineNumber": 81,
+                    "startColumn": 21,
+                    "endLineNumber": 81,
+                    "endColumn": 37
+                }
+        },
+
+
+
+        {
+            "name": "(Windows) Spustit",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "zadejte název programu, třeba ${workspaceFolder}/a.exe",
+            "args": [],
+            "stopAtEntry": {
+                "name": "route-name",
+                "type": "Microsoft.Network/routeTables/routes",
+                "apiVersion": "2018-08-01",
+                "properties": {
+                   "addressPrefix": "address-prefix",
+                   "nextHopType": "VirtualNetworkGateway",
+                   "nextHopIpAddress": "next-hop-ip"
+                }
+              },
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": {
+                "name": "route-name",
+                "type": "Microsoft.Network/routeTables/routes",
+                "apiVersion": "2018-08-01",
+                "properties": {
+                   "addressPrefix": "address-prefix",
+                   "nextHopType": "VirtualNetworkGateway",
+                   "nextHopIpAddress": "next-hop-ip"
+                }
+              }
+        }
+        {
+            "resource": "/C:/sha1collisiondetection/Plocha/Desktop/.vscode/launch.json",
+            "owner": "_generated_diagnostic_collection_name_#6",
+            "severity": 4,
+            "message": "Incorrect type. Expected \"object\".",
+            "startLineNumber": 81,
+            "startColumn": 21,
+            "endLineNumber": 81,
+            "endColumn": 37
+"launch.json (Desktop *,vscode[44, 21]) {
+    "": "2019-04-01",
+    "": "1.0.0.0",
+    "": {},
+    "": [],
+    "": {},
+    "": [],
+    "": {}
+9+, A}[367, 5]
