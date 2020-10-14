@@ -1,0 +1,45 @@
+##
+{
+    "-?-""://cdnjs.com/libraries/uikit/3.1.6 -->"
+    "<script src=" class="uk-flex-${0|none,auto,1|}" ://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/js/components/upload.min.js"></script>{
+	"resource""-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m" "/c:/Users/Neuro/AppData/Roaming/Code/User/settings.json",
+	"owner": "_generated_diagnostic_collection_name_#2",
+	"code": "513",
+	"severity": 8,
+	"message": "Property expected",
+	"source": "jsonc",
+	"startLineNumber": 1,
+	"startColumn": 2,
+	"endLineNumber": 1,
+	"endColumn": 3
+}##{
+	"resource": "/c:/Users/Neuro/AppData/Roaming/Code/User/settings.json",
+	"owner": "_generated_diagnostic_collection_name_#2",
+	"severity": 8,
+	"message": "End of file expected.",
+	"source": "jsonc",
+	"startLineNumber": 12,
+	"startColumn": 2,
+	"endLineNumber": 12,
+	"endColumn": 3
+}
+	"resource": "/c:/Users/Neuro/AppData/Roaming/Code/User/settings.json",
+	"owner": "_generated_diagnostic_collection_name_#2",
+	"severity": 8,
+	"message": "Property keys must be doublequoted",
+	"source": "jsonc",
+	"startLineNumber": 1,
+	"startColumn": 2,
+	"endLineNumber": 1,
+	"endColumn": 6
+#2.c}$ref '/definitions/jsonObject' in 'vscode://schemas/launch
+	"resource": "/c:/Users/Neuro/AppData/Roaming/Code/User/settings.json",
+	"owner": "_generated_diagnostic_collection_name_#2",
+	"severity": 8,
+	"message": "Expected a JSON object, array or literal.",
+	"source": "jsonc",
+	"startLineNumber": 1,
+	"startColumn": 1,
+	"endLineNumber": 1,
+	"endColumn": 6
+"java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m"}End of file expected(768).[1, 1]

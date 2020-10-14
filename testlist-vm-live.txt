@@ -1,0 +1,3 @@
+# Live + Playback
+include:./testlist-vm.txt
+# Live Only

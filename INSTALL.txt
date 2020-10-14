@@ -1,0 +1,75 @@
+                     BIOS Implementation Test Suite (BITS)
+                               and reference code
+                                 Burt Triplett
+
+This file contains installation instructions only.  See boot/README.txt for
+documentation on using BITS.
+
+For more information about BITS, including the latest version and the source
+code, see the BITS homepage at http://biosbits.org/
+
+
+Installation instructions for BITS
+==================================
+
+This procedure creates a bootable USB disk.  You will need a USB disk with a
+reasonable amount of space (enough to hold the boot directory present in this
+distribution, plus a little slack space).  Your USB disk should have a FAT32
+partition.
+
+If your USB disk contains any data that you care about, back it up now.  No
+really.  There will be a test later.
+
+Make sure you know the correct device name for your USB disk, so you don't
+write to your system's hard disk instead.
+
+Go get syslinux from <http://www.kernel.org/pub/linux/utils/boot/syslinux/>, or
+install the package provided by your Linux distribution; download the latest
+version and extract it somewhere you can find from the command line.  The
+syslinux distribution includes binaries for various platforms, including Linux,
+Windows, and DOS.
+
+The remaining instructions will require a command prompt; open one, and cd to
+this directory (containing this INSTALL.txt file and the boot directory).
+Under Windows, when the commands below refer to a program, you will need to
+give the path to the executable, wherever you extracted it.
+
+To build a bootable USB disk, you will need a USB disk with a FAT32 partition.
+A partitionless USB disk with no partition table and a FAT32 filesystem
+directly on the disk, sometimes called a "superfloppy", will *not* work.  If
+you have such a disk, you must partition it so that it has a partition table
+and a FAT32 partition.  For Linux, try gparted.  For Windows, the "HP USB disk
+storage format tool" can do this; you can find that tool at
+<http://downloads.pcworld.com/pub/new/utilities/peripherals/SP27608.exe>.  Run
+it, choose your USB disk (the tool should not let you choose your system hard
+disk), and choose "FAT32".  The volume label does not matter.  Do not check
+"Create a DOS startup disk"; this procedure will make the disk bootable, but it
+will boot something *much* more awesome than DOS.
+
+Now, copy the boot directory to the root of that drive.
+
+For Windows, run: xcopy /s boot u:\boot\
+Change "u:" to the drive letter of your USB disk.
+
+For Linux, run: cp -a boot /media/disk/
+Change /media/disk to the mount point of your USB disk.
+
+Now, you need to make the disk bootable with syslinux.
+
+For Windows, run: syslinux.exe -m -a u:
+Change "syslinux.exe" to the path to the syslinux executable for your platform,
+and "u:" to the drive letter of your USB disk
+
+For Linux, run: syslinux /dev/sdb
+Change "/dev/sdb" to the device name of your USB disk.  Take care not to
+syslinux your system hard disk.  You will also need to set the boot flag on the
+partition containing BITS; gparted can do that.  Finally, you need to install
+an MBR that will boot the bootable partition; try the "install-mbr" command,
+commonly available in a package named "mbr".
+
+You should now have a bootable USB disk.  You can read README.txt in the boot
+directory of that disk for more information on the BITS toolkit.
+
+Note that BITS boots via the standard BIOS boot procedure for USB disks.  BITS
+does not support native EFI booting; to test an EFI BIOS, please boot via the
+compatibility support module (CSM).
