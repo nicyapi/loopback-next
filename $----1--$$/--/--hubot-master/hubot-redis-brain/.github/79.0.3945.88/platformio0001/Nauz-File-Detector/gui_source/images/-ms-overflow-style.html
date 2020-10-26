@@ -1,0 +1,530 @@
+<!doctype html>
+<html class="no-js" lang="en-US" >
+	<head>
+		<meta charset="utf-8" /><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={licenseKey:"a4f47e1229",applicationID:"13231908"};window.NREUM||(NREUM={}),__nr_require=function(e,n,t){function r(t){if(!n[t]){var i=n[t]={exports:{}};e[t][0].call(i.exports,function(n){var i=e[t][1][n];return r(i||n)},i,i.exports)}return n[t].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<t.length;i++)r(t[i]);return r}({1:[function(e,n,t){function r(){}function i(e,n,t){return function(){return o(e,[u.now()].concat(f(arguments)),n?null:this,t),n?void 0:this}}var o=e("handle"),a=e(4),f=e(5),c=e("ee").get("tracer"),u=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",d=l+"ixn-";a(p,function(e,n){s[n]=i(l+n,!0,"api")}),s.addPageAction=i(l+"addPageAction",!0),s.setCurrentRouteName=i(l+"routeName",!0),n.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,n){var t={},r=this,i="function"==typeof n;return o(d+"tracer",[u.now(),e,t],r),function(){if(c.emit((i?"":"no-")+"fn-start",[u.now(),r,i],t),i)try{return n.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],t),e}finally{c.emit("fn-end",[u.now()],t)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,n){m[n]=i(d+n)}),newrelic.noticeError=function(e,n){"string"==typeof e&&(e=new Error(e)),o("err",[e,u.now(),!1,n])}},{}],2:[function(e,n,t){function r(e,n){var t=e.getEntries();t.forEach(function(e){"first-paint"===e.name?c("timing",["fp",Math.floor(e.startTime)]):"first-contentful-paint"===e.name&&c("timing",["fcp",Math.floor(e.startTime)])})}function i(e,n){var t=e.getEntries();t.length>0&&c("lcp",[t[t.length-1]])}function o(e){if(e instanceof s&&!l){var n,t=Math.round(e.timeStamp);n=t>1e12?Date.now()-t:u.now()-t,l=!0,c("timing",["fi",t,{type:e.type,fid:n}])}}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var a,f,c=e("handle"),u=e("loader"),s=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){a=new PerformanceObserver(r),f=new PerformanceObserver(i);try{a.observe({entryTypes:["paint"]}),f.observe({entryTypes:["largest-contentful-paint"]})}catch(p){}}if("addEventListener"in document){var l=!1,d=["click","keydown","mousedown","pointerdown","touchstart"];d.forEach(function(e){document.addEventListener(e,o,!1)})}}},{}],3:[function(e,n,t){function r(e,n){if(!i)return!1;if(e!==i)return!1;if(!n)return!0;if(!o)return!1;for(var t=o.split("."),r=n.split("."),a=0;a<r.length;a++)if(r[a]!==t[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var f=navigator.userAgent,c=f.match(a);c&&f.indexOf("Chrome")===-1&&f.indexOf("Chromium")===-1&&(i="Safari",o=c[1])}n.exports={agent:i,version:o,match:r}},{}],4:[function(e,n,t){function r(e,n){var t=[],r="",o=0;for(r in e)i.call(e,r)&&(t[o]=n(r,e[r]),o+=1);return t}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],5:[function(e,n,t){function r(e,n,t){n||(n=0),"undefined"==typeof t&&(t=e?e.length:0);for(var r=-1,i=t-n||0,o=Array(i<0?0:i);++r<i;)o[r]=e[n+r];return o}n.exports=r},{}],6:[function(e,n,t){n.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,n,t){function r(){}function i(e){function n(e){return e&&e instanceof r?e:e?c(e,f,o):o()}function t(t,r,i,o){if(!l.aborted||o){e&&e(t,r,i);for(var a=n(i),f=v(t),c=f.length,u=0;u<c;u++)f[u].apply(a,r);var p=s[y[t]];return p&&p.push([b,t,r,a]),a}}function d(e,n){h[e]=v(e).concat(n)}function m(e,n){var t=h[e];if(t)for(var r=0;r<t.length;r++)t[r]===n&&t.splice(r,1)}function v(e){return h[e]||[]}function g(e){return p[e]=p[e]||i(t)}function w(e,n){u(e,function(e,t){n=n||"feature",y[t]=n,n in s||(s[n]=[])})}var h={},y={},b={on:d,addEventListener:d,removeEventListener:m,emit:t,get:g,listeners:v,context:n,buffer:w,abort:a,aborted:!1};return b}function o(){return new r}function a(){(s.api||s.feature)&&(l.aborted=!0,s=l.backlog={})}var f="nr@context",c=e("gos"),u=e(4),s={},p={},l=n.exports=i();l.backlog=s},{}],gos:[function(e,n,t){function r(e,n,t){if(i.call(e,n))return e[n];var r=t();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,n,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return e[n]=r,r}var i=Object.prototype.hasOwnProperty;n.exports=r},{}],handle:[function(e,n,t){function r(e,n,t,r){i.buffer([e],r),i.emit(e,n,t)}var i=e("ee").get("handle");n.exports=r,r.ee=i},{}],id:[function(e,n,t){function r(e){var n=typeof e;return!e||"object"!==n&&"function"!==n?-1:e===window?0:a(e,o,function(){return i++})}var i=1,o="nr@id",a=e("gos");n.exports=r},{}],loader:[function(e,n,t){function r(){if(!x++){var e=E.info=NREUM.info,n=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&n))return s.abort();u(y,function(n,t){e[n]||(e[n]=t)}),c("mark",["onload",a()+E.offset],null,"api");var t=d.createElement("script");t.src="https://"+e.agent,n.parentNode.insertBefore(t,n)}}function i(){"complete"===d.readyState&&o()}function o(){c("mark",["domContent",a()+E.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(f=Math.max((new Date).getTime(),f))-E.offset}var f=(new Date).getTime(),c=e("handle"),u=e(4),s=e("ee"),p=e(3),l=window,d=l.document,m="addEventListener",v="attachEvent",g=l.XMLHttpRequest,w=g&&g.prototype;NREUM.o={ST:setTimeout,SI:l.setImmediate,CT:clearTimeout,XHR:g,REQ:l.Request,EV:l.Event,PR:l.Promise,MO:l.MutationObserver};var h=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1173.min.js"},b=g&&w&&w[m]&&!/CriOS/.test(navigator.userAgent),E=n.exports={offset:f,now:a,origin:h,features:{},xhrWrappable:b,userAgent:p};e(1),e(2),d[m]?(d[m]("DOMContentLoaded",o,!1),l[m]("load",r,!1)):(d[v]("onreadystatechange",i),l[v]("onload",r)),c("mark",["firstbyte",f],null,"api");var x=0,O=e(6)},{}],"wrap-function":[function(e,n,t){function r(e){return!(e&&e instanceof Function&&e.apply&&!e[a])}var i=e("ee"),o=e(5),a="nr@original",f=Object.prototype.hasOwnProperty,c=!1;n.exports=function(e,n){function t(e,n,t,i){function nrWrapper(){var r,a,f,c;try{a=this,r=o(arguments),f="function"==typeof t?t(r,a):t||{}}catch(u){l([u,"",[r,a,i],f])}s(n+"start",[r,a,i],f);try{return c=e.apply(a,r)}catch(p){throw s(n+"err",[r,a,p],f),p}finally{s(n+"end",[r,a,c],f)}}return r(e)?e:(n||(n=""),nrWrapper[a]=e,p(e,nrWrapper),nrWrapper)}function u(e,n,i,o){i||(i="");var a,f,c,u="-"===i.charAt(0);for(c=0;c<n.length;c++)f=n[c],a=e[f],r(a)||(e[f]=t(a,u?f+i:i,o,f))}function s(t,r,i){if(!c||n){var o=c;c=!0;try{e.emit(t,r,i,n)}catch(a){l([a,t,r,i])}c=o}}function p(e,n){if(Object.defineProperty&&Object.keys)try{var t=Object.keys(e);return t.forEach(function(t){Object.defineProperty(n,t,{get:function(){return e[t]},set:function(n){return e[t]=n,n}})}),n}catch(r){l([r])}for(var i in e)f.call(e,i)&&(n[i]=e[i]);return n}function l(n){try{e.emit("internal-error",n)}catch(t){}}return e||(e=i),t.inPlace=u,t.flag=a,t}},{}]},{},["loader"]);</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="icon" href="http://www.piazza31.com/wp-content/themes/NichePress/assets/img/icons/favicon.ico" type="image/x-icon">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.piazza31.com/wp-content/themes/NichePress/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.piazza31.com/wp-content/themes/NichePress/assets/img/icons/apple-touch-icon-114x114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.piazza31.com/wp-content/themes/NichePress/assets/img/icons/apple-touch-icon-72x72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="http://www.piazza31.com/wp-content/themes/NichePress/assets/img/icons/apple-touch-icon-precomposed.png">
+        <script src="https://use.typekit.net/nyn1qpj.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+		<title>Mike Piazza</title>
+<meta name='robots' content='noindex,follow' />
+<link rel='stylesheet' id='ajax-load-more-css'  href='http://www.piazza31.com/wp-content/plugins/ajax-load-more/core/css/ajax-load-more.min.css' type='text/css' media='all' />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://www.piazza31.com/wp-content/plugins/contact-form-7/includes/css/styles.css' type='text/css' media='all' />
+<link rel='stylesheet' id='essential-grid-plugin-settings-css'  href='http://www.piazza31.com/wp-content/plugins/essential-grid/public/assets/css/settings.css' type='text/css' media='all' />
+<link rel='stylesheet' id='tp-open-sans-css'  href='http://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C800' type='text/css' media='all' />
+<link rel='stylesheet' id='tp-raleway-css'  href='http://fonts.googleapis.com/css?family=Raleway%3A100%2C200%2C300%2C400%2C500%2C600%2C700%2C800%2C900' type='text/css' media='all' />
+<link rel='stylesheet' id='tp-droid-serif-css'  href='http://fonts.googleapis.com/css?family=Droid+Serif%3A400%2C700' type='text/css' media='all' />
+<link rel='stylesheet' id='main-stylesheet-css'  href='http://www.piazza31.com/wp-content/themes/NichePress/css/foundation.css' type='text/css' media='all' />
+<link rel='stylesheet' id='slick-stylesheet-css'  href='http://www.piazza31.com/wp-content/themes/NichePress/assets/slick-1.5.7/slick/slick.css' type='text/css' media='all' />
+<link rel='stylesheet' id='niche-stylesheet-css'  href='http://www.piazza31.com/wp-content/themes/NichePress/css/custom.css' type='text/css' media='all' />
+<link rel='stylesheet' id='wordpress-popular-posts-css'  href='http://www.piazza31.com/wp-content/plugins/wordpress-popular-posts/style/wpp.css' type='text/css' media='all' />
+<script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/plugins/essential-grid/public/assets/js/lightbox.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/plugins/essential-grid/public/assets/js/jquery.themepunch.tools.min.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/plugins/essential-grid/public/assets/js/jquery.themepunch.essential.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var FlowFlowOpts = {"streams":{"id1":{"id":"1","name":"General","feeds":"[{\"content\":\"mikepiazza31\",\"id\":\"hm80835\",\"type\":\"instagram\",\"filter-by-words\":\"mikepiazza31\"},{\"content\":\"mikepiazza31\",\"retweets\":\"nope\",\"replies\":\"nope\",\"id\":\"ct11368\",\"type\":\"twitter\",\"filter-by-words\":\"mikepiazzaofficial\"},{\"content\":\"mikepiazzaofficial\",\"id\":\"ji44721\",\"type\":\"facebook\"}]","posts":"40","cache":"yep","cache-lifetime":"10","private":"nope","hide-on-desktop":"nope","hide-on-mobile":"nope","heading":"","headingcolor":"rgb(154, 78, 141)","subheading":"","subheadingcolor":"rgb(114, 112, 114)","hhalign":"center","bgcolor":"rgb(229, 229, 229)","mobileslider":"nope","viewportin":"yep","layout":"grid","theme":"classic","gc-style":"style-4","width":"260","margin":"20","cardcolor":"rgb(255, 255, 255)","namecolor":"rgb(30, 35, 67)","textcolor":"rgb(85, 85, 85)","linkscolor":"rgb(94, 159, 202)","restcolor":"rgb(132, 118, 129)","shadow":"rgba(0, 0, 0, 0.22)","bcolor":"rgba(240, 237, 231, 0.4)","talign":"left","css":""}},"open_in_new":"nope","filter_all":"All","filter_search":"Search","expand_text":"Expand","collapse_text":"Collapse","posted_on":"Posted on","show_more":"Show more","dates":{"Yesterday":"Yesterday","s":"s","m":"m","h":"h","ago":"ago","months":["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"]},"lightbox_navigate":"Navigate with arrow keys","server_time":"1596747375","isAdmin":"","forceHTTPS":"nope","isLog":"","plugin_ver":"1.3.13"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/plugins/flow-flow-social-streams/js/require-utils.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/themes/NichePress/js/vendor/modernizr.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/themes/NichePress/js/vendor/fastclick.js'></script>
+<link rel='https://api.w.org/' href='http://www.piazza31.com/wp-json/' />
+<link rel="alternate" type="application/json+oembed" href="http://www.piazza31.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.piazza31.com%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://www.piazza31.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.piazza31.com%2F&#038;format=xml" />
+
+<!-- metadata inserted by keyword-statistics-plugin 1.7.8 http://www.keyword-statistics.net -->
+<meta name="robots" content="index,follow,noodp,noarchive,noydir" />
+<link rel="canonical" href="http://www.piazza31.com//" />
+<!-- end of metadata -->
+        <script type="text/javascript" src="http://www.piazza31.com/wp-content/themes/NichePress/assets/slick-1.5.7/slick/slick.js"></script>
+        <style>
+            .fade-1 {
+                visibility: hidden;
+            }
+        </style>
+	</head>
+	<body class="home singular page page-id-70 page-template-default">
+		
+	<div class="off-canvas-wrap" data-offcanvas>
+	<div class="inner-wrap">
+	
+		
+	<nav class="tab-bar">
+		<section class="left-small">
+			<a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+		</section>
+		<section class="middle tab-bar-section">
+
+			<h1 class="title h-100">
+                <a href="http://www.piazza31.com">
+                    <img src="http://www.piazza31.com/wp-content/uploads/2015/11/logo@2x.png" alt="Mike Piazza #31 Official Website Logo">
+                </a>
+                <a href="http://www.piazza31.com">
+				Mike Piazza                </a>
+			</h1>
+		</section>
+	</nav>
+
+	<aside class="left-off-canvas-menu" aria-hidden="true">
+    <ul id="menu-mobile" class="off-canvas-list"><li id="menu-item-138" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-70 current_page_item active menu-item-138 active"><a href="http://www.piazza31.com/">Home</a></li>
+<li id="menu-item-109" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-109"><a href="http://www.piazza31.com/stats/">Stats</a></li>
+<li id="menu-item-110" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-110"><a href="http://www.piazza31.com/media/">Media</a></li>
+<li id="menu-item-112" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-112"><a href="http://www.piazza31.com/bio/">Bio</a></li>
+<li id="menu-item-111" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-111"><a href="http://www.piazza31.com/inquiries/">Inquiries</a></li>
+</ul></aside>
+	<div class="top-bar-container contain-to-grid show-for-medium-up">
+    <nav id="top-bar-kit" class="top-bar" data-topbar role="navigation">
+        <section class="top-bar-section">
+            <ul id="menu-left-menu" class="top-bar-menu left"><li class="divider"></li><li id="menu-item-106" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-106"><a href="http://www.piazza31.com/media/">Media</a></li>
+<li class="divider"></li><li id="menu-item-105" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-105"><a href="http://www.piazza31.com/stats/">Stats</a></li>
+</ul>            <a href="http://www.piazza31.com"><img src="http://www.piazza31.com/wp-content/uploads/2015/11/logo@2x.png" alt="Mike Piazza #31 Official Website Logo"/></a>
+            <ul id="menu-right-menu" class="top-bar-menu right"><li class="divider"></li><li id="menu-item-108" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-108"><a href="http://www.piazza31.com/bio/">Bio</a></li>
+<li class="divider"></li><li id="menu-item-107" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-107"><a href="http://www.piazza31.com/inquiries/">Inquiries</a></li>
+</ul>        </section>
+    </nav>
+</div>
+<section class="container" role="document">
+	    <div id="hero" class="size">
+        <div class="hero-static h-100" style="background:url(http://www.piazza31.com/wp-content/uploads/2016/03/home-page.jpg);">
+            <div class="outer">
+                <div class="inner">
+                    <h1 class="fade-1">Mike PIazza #31</h1><br />
+                    <h2 class="fade-1">2016 BASEBALL HALL OF FAME INDUCTEE</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="about" class="pd-90 white" style="background:url(http://www.piazza31.com/wp-content/uploads/2015/11/home-about-bg@2x.jpg)">
+        <div class="row">
+            <div class="medium-4 columns">
+                <img src="http://www.piazza31.com/wp-content/uploads/2015/11/home-about-image@2x.jpg" alt="Image of Mike Piazza"/>
+            </div>
+            <div class="medium-8 columns">
+                <h2>About Mike Piazza</h2>
+                <p>From unheralded draft pick to perennial All Star and now 2016 National Baseball Hall of Fame Inductee, Mike Piazza has experienced an illustrious career that only few have been able to match.  With Mike&#8217;s talent, determination, and a formidable work ethic, he became one of the great players in the history of the game.</p>
+                <a href="http://www.piazza31.com/bio/">
+                    <button class="button">Read More</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="twitter" class="pd-90" style="background:url(http://www.piazza31.com/wp-content/themes/NichePress/assets/img/home-twitter-bg@2x.jpg);">
+                    <div class="row">
+                <div class="medium-8 columns twitter-box white">
+                    <div class="small-3 medium-2 large-3 columns">
+                        <img src="http://pbs.twimg.com/profile_images/1194646964417236993/3erk_bFJ.jpg" alt="Twitter Profile Image"/>
+                    </div>
+                    <div class="small-9 medium-10 large-9 columns">
+                        <p><a href="http://twitter.com/mikepiazza31">@mikepiazza31</a></p>
+                        <p><a href="http://www.twitter.com/OneforthreeC1\" target=\"_blank\">@OneforthreeC1</a> <a href="http://www.twitter.com/SportsLawLust\" target=\"_blank\">@SportsLawLust</a> Worked for the Karate kid.</p>
+                                                                                                    <p>1 min ago</p>
+                                                <ul>
+                            <a href="https://twitter.com/intent/tweet?in_reply_to=1291477961867235329">
+                                <li class="fa fa-reply"></li>
+                            </a>
+                            <a href="https://twitter.com/intent/retweet?tweet_id=1291477961867235329">
+                                <li class="fa fa-retweet"><span></span></li>
+                            </a>
+                            <a href="https://twitter.com/intent/favorite?tweet_id=1291477961867235329">
+                                <li class="fa fa-heart"><span>2</span></li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="medium-4 columns">
+                    <h2>100945<br />Followers.</h2>
+                    <a href="http://twitter.com/mikepiazza31" target="_blank">
+                        <button class="button button-twitter">Follow Me On Twitter</button>
+                    </a>
+                </div>
+            </div>
+            </div>
+    <div id="career-highlights" class="pd-90 white" style="background:url(http://www.piazza31.com/wp-content/uploads/2015/11/home-career-bg@2x.jpg);">
+        <div class="row">
+            <div class="medium-12 columns career-highlights-title">
+                <hr/><h2>Career Highlights</h2><hr/>
+            </div>
+            <div class="small-12 columns">
+                                    <div class="stat-slider">
+                                                    <div class="stat-slide" data-equalizer>
+                                <div class="medium-4 columns stats text-center no-pd" data-equalizer-watch>
+                                    <h3>.308</h3>
+                                    <p>Career Batting Average</p>
+                                    <p></p>
+                                </div>
+                                <div class="medium-8 columns stat-image no-pd"  data-equalizer-watch>
+                                    <img src="http://www.piazza31.com/wp-content/uploads/2015/11/career_highlights_1.jpg" alt="Action image of Mike Piazza"/>
+                                </div>
+                            </div>
+                                                    <div class="stat-slide" data-equalizer>
+                                <div class="medium-4 columns stats text-center no-pd" data-equalizer-watch>
+                                    <h3>427</h3>
+                                    <p>Career Home Runs</p>
+                                    <p>(all-time record for HR by a catcher)</p>
+                                </div>
+                                <div class="medium-8 columns stat-image no-pd"  data-equalizer-watch>
+                                    <img src="http://www.piazza31.com/wp-content/uploads/2015/11/Mike_Piazza-mets-2.jpg" alt="Action image of Mike Piazza"/>
+                                </div>
+                            </div>
+                                                    <div class="stat-slide" data-equalizer>
+                                <div class="medium-4 columns stats text-center no-pd" data-equalizer-watch>
+                                    <h3>12</h3>
+                                    <p>All Star Appearances</p>
+                                    <p></p>
+                                </div>
+                                <div class="medium-8 columns stat-image no-pd"  data-equalizer-watch>
+                                    <img src="http://www.piazza31.com/wp-content/uploads/2016/03/piazza_swings_1600_750.jpg" alt="Action image of Mike Piazza"/>
+                                </div>
+                            </div>
+                                                    <div class="stat-slide" data-equalizer>
+                                <div class="medium-4 columns stats text-center no-pd" data-equalizer-watch>
+                                    <h3>10</h3>
+                                    <p>Silver Slugger Awards</p>
+                                    <p></p>
+                                </div>
+                                <div class="medium-8 columns stat-image no-pd"  data-equalizer-watch>
+                                    <img src="http://www.piazza31.com/wp-content/uploads/2015/12/Mike_Piazza__CH__Padres_vs._AZ_Diamondbacks-web.jpg" alt="Action image of Mike Piazza"/>
+                                </div>
+                            </div>
+                                                    <div class="stat-slide" data-equalizer>
+                                <div class="medium-4 columns stats text-center no-pd" data-equalizer-watch>
+                                    <h3>1</h3>
+                                    <p>Rookie of the Year Award Winner</p>
+                                    <p></p>
+                                </div>
+                                <div class="medium-8 columns stat-image no-pd"  data-equalizer-watch>
+                                    <img src="http://www.piazza31.com/wp-content/uploads/2015/12/Mike_Piazza__CH__Padres_vs._NY_Mets-web.jpg" alt="Action image of Mike Piazza"/>
+                                </div>
+                            </div>
+                                                    <div class="stat-slide" data-equalizer>
+                                <div class="medium-4 columns stats text-center no-pd" data-equalizer-watch>
+                                    <h3>18</h3>
+                                    <p>MLB Seasons</p>
+                                    <p></p>
+                                </div>
+                                <div class="medium-8 columns stat-image no-pd"  data-equalizer-watch>
+                                    <img src="http://www.piazza31.com/wp-content/uploads/2015/12/2006_NLDS_Game_1_039-web-1600x750.jpg" alt="Action image of Mike Piazza"/>
+                                </div>
+                            </div>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+    <div id="social-wall" class="pd-90">
+                <div class="row">
+            <div class="small-12 columns">
+                <hr/><h2>Mike's Social Wall</h2><hr/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <!-- Flow-Flow — Social streams plugin for Wordpress -->
+<style type="text/css" id="ff-dynamic-styles-1">
+	#ff-stream-1 .ff-header h1,#ff-stream-1 .ff-controls-wrapper > span:hover { color: rgb(154, 78, 141); }
+	#ff-stream-1 .ff-controls-wrapper > span:hover { border-color: rgb(154, 78, 141) !important; }
+	#ff-stream-1 .ff-header h2 { color: rgb(114, 112, 114); }
+	#ff-stream-1 .ff-filter-holder .ff-filter,
+	#ff-stream-1 .ff-filter-holder:before,
+	#ff-stream-1 .ff-filter:hover,
+	#ff-stream-1 .ff-loadmore-wrapper .ff-btn,
+	#ff-stream-1 .ff-square:nth-child(1) {
+		background-color: rgb(154, 78, 141);
+	}
+	#ff-stream-1,
+	#ff-stream-1 .ff-search input,
+	#ff-stream-1.ff-layout-compact .picture-item__inner {
+		background-color: rgb(229, 229, 229);
+	}
+	#ff-stream-1 .ff-header h1, #ff-stream-1 .ff-header h2 {
+		text-align: center;
+	}
+	#ff-stream-1 .ff-item, #ff-stream-1 .shuffle__sizer{
+		width:  260px;
+	}
+	#ff-stream-1 .ff-item {
+		margin-bottom: 20px !important;
+	}
+	#ff-stream-1 .shuffle__sizer {
+		margin-left: 20px !important;
+	}
+	#ff-stream-1  .picture-item__inner {
+		background: rgb(255, 255, 255);
+		color: rgb(85, 85, 85);
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.22);
+	}
+	#ff-stream-1 .ff-mob-link{
+		background-color: rgb(85, 85, 85);
+	}
+	#ff-stream-1 .ff-mob-link:after{
+		color: rgb(255, 255, 255);
+	}
+	#ff-stream-1,
+	#ff-stream-1-slideshow {
+		color: rgb(85, 85, 85);
+	}
+	#ff-stream-1 li,
+	#ff-stream-1-slideshow li,
+	#ff-stream-1 .ff-square {
+		background: rgb(255, 255, 255);
+	}
+	#ff-stream-1 .ff-icon, #ff-stream-1-slideshow .ff-icon {
+		border-color: rgb(255, 255, 255);
+	}
+	#ff-stream-1  a, #ff-stream-1-slideshow  a{
+		color: rgb(94, 159, 202);
+	}
+
+	#ff-stream-1 h4, #ff-stream-1-slideshow h4,
+	#ff-stream-1 .ff-name, #ff-stream-1-slideshow .ff-name {
+		color: rgb(30, 35, 67) !important;
+	}
+
+	#ff-stream-1 .ff-mob-link:hover{
+		background-color: rgb(30, 35, 67);
+	}
+	#ff-stream-1 .ff-nickname,
+	#ff-stream-1-slideshow .ff-nickname,
+	#ff-stream-1 .ff-timestamp,
+	#ff-stream-1-slideshow .ff-timestamp {
+		color: rgb(132, 118, 129) !important;
+	}
+	#ff-stream-1 .ff-item {
+		text-align: left;
+	}
+	#ff-stream-1 .ff-item-meta,
+	#ff-stream-1-slideshow .ff-item-meta {
+		border-color: rgba(240, 237, 231, 0.4);
+	}
+	</style>
+<div class="ff-stream" id="ff-stream-1"><span class="ff-loader"><span class="ff-square" ></span><span class="ff-square"></span><span class="ff-square ff-last"></span><span class="ff-square ff-clear"></span><span class="ff-square"></span><span class="ff-square ff-last"></span><span class="ff-square ff-clear"></span><span class="ff-square"></span><span class="ff-square ff-last"></span></span></div>
+<script type="text/javascript">
+	var _ajaxurl = 'http://www.piazza31.com/wp-admin/admin-ajax.php';
+	(function ( $ ) {
+		"use strict";
+		if (/MSIE 8/.test(navigator.userAgent)) return;
+		var opts = window.FlowFlowOpts;
+		if (!opts) {
+			window.console && window.console.log('no Flow-Flow options');
+			return;
+		}
+		if (!window.FF_resource) {
+			window.console && window.console.log('no required script');
+			return
+		}
+		var data = {
+			'action': 'fetch_posts',
+			'stream-id': '1',
+			'disable-cache': ''};
+		var isMobile = /android|blackBerry|iphone|ipad|ipod|opera mini|iemobile/i.test(navigator.userAgent);
+		var streamOpts = opts['streams']['id' + data['stream-id']];
+		var $cont = $("#ff-stream-"+data['stream-id']);
+		var ajaxDeferred;
+		var script, style;
+		if (FF_resource.scriptDeferred.state() === 'pending' && !FF_resource.scriptLoading) {
+			script = document.createElement('script');
+			script.src = "http://www.piazza31.com/wp-content/plugins/flow-flow-social-streams/js/public.js";
+			script.onload = function( script, textStatus ) {
+				FF_resource.scriptDeferred.resolve();
+			};
+			document.body.appendChild(script);
+			FF_resource.scriptLoading = true;
+		}
+		if (FF_resource.styleDeferred.state() === 'pending' && !FF_resource.styleLoading) {
+			style = document.createElement('link');
+			style.type = "text/css";
+			style.rel = "stylesheet";
+			style.href = "http://www.piazza31.com/wp-content/plugins/flow-flow-social-streams/css/public.css";
+			style.media = "screen";
+			style.onload = function( script, textStatus ) {
+				FF_resource.styleDeferred.resolve();
+			};
+			document.getElementsByTagName("head")[0].appendChild(style);
+			FF_resource.styleLoading = true;
+		}
+		$cont.addClass('ff-layout-' + streamOpts.layout)
+		if (!isMobile) $cont.css('minHeight', '1000px');
+		ajaxDeferred = $.get(_ajaxurl, data);
+		$.when( ajaxDeferred, FF_resource.scriptDeferred, FF_resource.styleDeferred ).done(function ( data ) {
+			var response, $stream;
+			var $errCont, errs, err;
+			var num = (streamOpts.mobileslider === 'yep' && isMobile) ? (streamOpts.mobileslider === 'yep' ? 3 : streamOpts['cards-num']) : false;
+			var w;
+
+			try {
+				response = JSON.parse(data[0]);
+			} catch (e) {
+				window.console && window.console.log('Flow-Flow gets invalid data from server');
+				if (opts.isAdmin || opts.isLog) {
+					$errCont = $('<div class="ff-errors" id="ff-errors-invalid-response"><div class="ff-disclaim">If you see this then you\'re administrator and Flow-Flow got invalid data from server. Please provide error message below if you\'re doing support request.</div><div class="ff-err-info"></div></div>')
+					$cont.before($errCont);
+					$errCont.find('.ff-err-info').html(data[0] == '' ? 'Empty response from server' : data[0])
+				}
+				return;
+			}
+
+			$stream = FlowFlow.buildStreamWith(response);
+
+			$cont.append($stream);
+			if (typeof $stream !== 'string') {
+				FlowFlow.setupGrid($cont.find('.ff-stream-wrapper'), num, streamOpts.scrolltop === 'yep', streamOpts.gallery === 'yep', streamOpts, $cont);
+			}
+			setTimeout(function(){
+				$cont.find('.ff-header').removeClass('ff-loading').end().find('.ff-loader').addClass('ff-squeezed');
+			}, 0);
+			if ((opts.isAdmin || opts.isLog ) && response.errors && response.errors.length) {
+				$errCont = $('<div class="ff-errors" id="ff-errors-'+response.id+'"><div class="ff-disclaim">If you see this then you\'re administrator and Flow-Flow got next errors from API. Please provide this info if you\'re doing support request.</div><div class="ff-err-info"></div></div>')
+				$cont.before($errCont);
+				errs = '', err;
+				for (var i = 0, len = response.errors.length;i < len; i++) {
+					err = response.errors[i];
+					if (typeof err === 'string') {
+						errs += '<p>' + err + '</p>';
+					} else if (typeof err  === 'object') {
+						if (err['type'] && err['message']) {
+							errs += '<p>From: ' + (err['type'] ? err['type'].toUpperCase() : 'Unknown') + '<br>' + err['message'] + '</p>';
+						}
+						else if ($.isArray(err)) {
+							for (var j = 0, _l = err.length; j < _l; j++ ) {
+								errs += '<p>' + err[j] + '</p>';
+							}
+						}
+					}
+				}
+				$errCont.find('.ff-err-info').html(errs)
+			}
+		});
+		return false;
+	}(jQuery));
+</script>
+<!-- Flow-Flow — Social streams plugin for Wordpress -->            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var resizeHero = function()
+            {
+                var hero = $(".size"), window1 = $(window);
+                hero.css({
+                    "width": window1.width(),
+                    "height": window1.height()
+                });
+            };
+            resizeHero();
+            $(window).resize(function(){
+                resizeHero();
+            });
+        });
+    </script>
+
+
+</section>
+<div class="pre-footer pd-50">
+    <p class="text-center">&copy; 2020 Mike Piazza.  All Rights Reserved | Site Created by <a href="http://nicheagency.co" target="_blank">Niche Agency</a></p>
+</div>
+<footer class="footer pd-30">
+    <div class="row">
+	    <div class="medium-12 columns text-center">
+        <div class="social-icons">
+                            <div class="social-icon twitter">
+                    <a href="http://www.twitter.com/mikepiazza31" target="_blank">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 72 72" style="enable-background:new 0 0 72 72;" xml:space="preserve">
+                        <path class="twitter" fill="#25a7df" d="M0.2,0.2v71.6h71.6V0.2H0.2z M52.4,29.2c0,0.3,0,0.7,0,1c0,10.1-7.7,21.8-21.8,21.8c-4.3,0-8.4-1.3-11.8-3.4
+                        c0.6,0.1,1.2,0.1,1.8,0.1c3.6,0,6.9-1.2,9.5-3.3c-3.4-0.1-6.2-2.3-7.2-5.3c0.5,0.1,1,0.1,1.4,0.1c0.7,0,1.4-0.1,2-0.3
+                        c-3.5-0.7-6.2-3.8-6.2-7.5v-0.1c1,0.6,2.2,0.9,3.5,1c-2.1-1.4-3.4-3.7-3.4-6.4c0-1.4,0.4-2.7,1-3.9c3.8,4.6,9.4,7.7,15.8,8
+                        c-0.1-0.6-0.2-1.2-0.2-1.8c0-4.2,3.4-7.7,7.7-7.7c2.2,0,4.2,0.9,5.6,2.4c1.8-0.3,3.4-1,4.9-1.9c-0.6,1.8-1.8,3.3-3.4,4.2
+                        c1.6-0.2,3-0.6,4.4-1.2C55.2,26.8,53.9,28.2,52.4,29.2z"/>
+                        </svg>
+                    </a>
+                </div>
+                                        <div class="social-icon facebook">
+                    <a href="http://www.facebook.com/mikepiazzaofficial" target="_blank">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 72 72" style="enable-background:new 0 0 72 72;" xml:space="preserve">
+                        <g>
+                            <path class="facebook" fill="#4d67a3" d="M0.2,71.8h71.7V0.2H0.2V71.8z M25.5,28.3h4.4v-6.1c0-1.1-0.2-8.5,9.3-8.5h6.7v7.7H41c-1,0-2,1-2,1.8v5.1h6.9
+                                c-0.3,3.9-0.8,7.4-0.8,7.4H39v22h-9.1v-22h-4.4L25.5,28.3L25.5,28.3z"/>
+                        </g>
+                        </svg>
+                    </a>
+                </div>
+                                                    <div class="social-icon instagram-icon">
+                    <a href="https://www.instagram.com/mikepiazza31/" target="_blank">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                             viewBox="0 0 72 72" style="enable-background:new 0 0 72 72;" xml:space="preserve">
+                        <g>
+                            <rect class="instagram" x="25.4" y="19.5" width="1.3" height="7.8"/>
+                            <path d="M18.9,21.8v5.5h1.3v-7.6C19.4,20.1,18.9,20.9,18.9,21.8z"/>
+                            <path d="M46.7,27h3.5c1.3,0,2.4-1.1,2.4-2.4v-2.5c0-1.3-1.1-2.4-2.4-2.4h-3.5c-1.3,0-2.4,1.1-2.4,2.4v2.5C44.3,26,45.4,27,46.7,27z
+                                "/>
+                            <rect x="21.1" y="19.5" width="1.2" height="7.8"/>
+                            <rect x="23.2" y="19.5" width="1.3" height="7.8"/>
+                            <circle class="instagram" cx="35.9" cy="34.2" r="6.4"/>
+                            <path class="instagram" d="M71.7,0.2H0.2v71.6h71.6V0.2z M17.1,21c0-1.8,1.5-3.3,3.3-3.3h31c1.8,0,3.3,1.5,3.3,3.3v7.8H43c-1.6-2.2-4.2-3.6-7.2-3.6
+                                s-5.5,1.4-7.2,3.6H17.1L17.1,21L17.1,21z M43.8,34.2c0,4.3-3.5,7.9-7.9,7.9S28,38.5,28,34.2c0-4.3,3.5-7.9,7.9-7.9
+                                S43.8,29.9,43.8,34.2z M54.7,52c0,1.8-1.5,3.3-3.3,3.3h-31c-1.8,0-3.3-1.5-3.3-3.3V30.1h10.8c-0.6,1.2-1,2.6-1,4.1c0,5,4,9,9,9
+                                c5,0,9-4,9-9c0-1.5-0.4-2.8-1-4.1h10.8L54.7,52L54.7,52z"/>
+                        </g>
+                        </svg>
+                    </a>
+                </div>
+                                            </div>
+    </div>
+	    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.stat-slider').slick({
+                dots:true,
+                infinite:true,
+                arrows:false,
+                autoplay:true,
+                autoplaySpeed:4000
+            });
+        });
+        $(document).ready(function(){
+            $('.hero-slider').slick({
+                infinite:true,
+                dots:false,
+                arrows:false,
+                autoplay:true
+            });
+        });
+    </script>
+    </div>
+</footer>
+<a class="exit-off-canvas"></a>
+
+		</div>
+</div>
+
+<!-- NEW ANIMATION START -->
+<script src="http://www.piazza31.com/wp-content/themes/NichePress/js/viewportchecker.js"></script>
+<link rel="stylesheet" href="http://www.piazza31.com/wp-content/themes/NichePress/css/animate.css">
+<script>
+    jQuery(document).ready(function() {
+        jQuery('.fade-1').addClass("hidden").viewportChecker({
+            classToAdd: 'visible animated fadeIn', // Class to add to the elements when they are visible
+            offset: 0
+        });
+    });
+</script>
+<!-- NEW ANIMATION END -->
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.piazza31.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","recaptchaEmpty":"Please verify that you are not a robot.","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/plugins/contact-form-7/includes/js/scripts.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-content/themes/NichePress/js/foundation.js'></script>
+<script type='text/javascript' src='http://www.piazza31.com/wp-includes/js/wp-embed.min.js'></script>
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"a4f47e1229","applicationID":"13231908","transactionName":"ZABRNUQCXBBZVURYDF1KcgJCCl0NF1BCXg1HSEMAUQY=","queueTime":0,"applicationTime":630,"atts":"SEdSQwwYTx4=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
