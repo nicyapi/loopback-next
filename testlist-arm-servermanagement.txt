@@ -1,2 +1,0 @@
-# shhh
-commands/arm/servermanagement/arm.servermanagement-crud-tests.js

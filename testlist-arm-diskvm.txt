@@ -1,2 +1,0 @@
-commands/arm/diskvm/arm.managed-disk-vm-parameter-create-tests.js
-commands/arm/diskvm/arm.diskvm-parameter-create-tests.js
