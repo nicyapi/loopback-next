@@ -1,1 +1,0 @@
-commands/arm/disk/arm.snapshot-create-tests.js

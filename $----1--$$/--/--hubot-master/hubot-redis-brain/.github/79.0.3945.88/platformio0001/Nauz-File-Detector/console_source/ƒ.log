@@ -1,9 +1,0 @@
-VM2016:460 Using Translate V3 APIs
-VM2016:456 Beginning page translation...
-VM2016:461 Took 3069.985000000088 ms to first complete.
-VM2016:456 Intermidiate complete called with false
-VM2016:456 Successfully completed translation.
-temp1
-<html dir=​"ltr" lang=​"en" style=​"font-size:​ 15px;​">​<head>​…​</head>​<body style=​"background-color:​ rgb(255, 255, 255)​;​">​…​</body>​</html>​
-temp2
-<!DOCTYPE html>
