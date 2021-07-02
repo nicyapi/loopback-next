@@ -1,4 +1,4 @@
-/* $OpenBSD: misc.c,v 1.165 2021/06/04 05:02:40 djm Exp $ */
+/* $OpenBSD: misc.c,v 1.167 2021/07/02 07:20:44 dtucker Exp $ */
 /*
  * Copyright (c) 2000 Markus Friedl.  All rights reserved.
  * Copyright (c) 2005-2020 Damien Miller.  All rights reserved.
@@ -83,6 +83,20 @@ chop(char *s)
 	}
 	return s;
 
+}
+
+/* remove whitespace from end of string */
+void
+rtrim(char *s)
+{
+	size_t i;
+
+	if ((i = strlen(s)) == 0)
+		return;
+	for (i--; i > 0; i--) {
+		if (isspace((int)s[i]))
+			s[i] = '\0';
+	}
 }
 
 /* set/unset filedescriptor to non-blocking */
@@ -462,7 +476,6 @@ pwcopy(struct passwd *pw)
 #endif
 	copy->pw_dir = xstrdup(pw->pw_dir);
 	copy->pw_shell = xstrdup(pw->pw_shell);
-
 	return copy;
 }
 
@@ -728,17 +741,6 @@ colon(char *cp)
 
 	if (*cp == ':')		/* Leading colon is part of file name. */
 		return NULL;
-
-#ifdef WINDOWS
-	/*
-	 * Account for Windows file names in the form x: or /x: 
-	 * Note: This may conflict with potential single character targets
-	 */
-	if ((*cp != '\0' && cp[1] == ':') ||
-	    (cp[0] == '/' && cp[1] != '\0' && cp[2] == ':'))
-		return NULL;
-#endif
-
 	if (*cp == '[')
 		flag = 1;
 
@@ -985,16 +987,6 @@ parse_uri(const char *scheme, const char *uri, char **userp, char **hostp,
 	if ((cp = strchr(tmp, '@')) != NULL) {
 		char *delim;
 
-#ifdef WINDOWS
-		/* TODO - This looks to be a core bug in unix code as user can be in UPN format
-		 *  The above line should be strrchr() instead of strchr.
-		 *  For time being, special handling when username is in User@domain format
-		 */
-
-		char *cp_1 = cp;
-		if ((cp_1 = strchr(cp + 1, '@')) != NULL)
-			cp = cp_1;
-#endif
 		*cp = '\0';
 		/* Extract username and connection params */
 		if ((delim = strchr(tmp, ';')) != NULL) {
@@ -1739,15 +1731,7 @@ mktemp_proto(char *s, size_t len)
 	const char *tmpdir;
 	int r;
 
-	tmpdir = getenv("TMPDIR");
-
-#ifdef WINDOWS
-	if (tmpdir == NULL) {
-		tmpdir = getenv("TEMP");
-	}
-#endif
-
-	if (tmpdir != NULL) {
+	if ((tmpdir = getenv("TMPDIR")) != NULL) {
 		r = snprintf(s, len, "%s/ssh-XXXXXXXXXXXX", tmpdir);
 		if (r > 0 && (size_t)r < len)
 			return;
@@ -1925,14 +1909,6 @@ forward_equals(const struct Forward *a, const struct Forward *b)
 }
 
 /* returns 1 if process is already daemonized, 0 otherwise */
-#ifdef WINDOWS
-/* This should go away once sshd platform specific startup code is refactored */
-int 
-daemonized(void)
-{
-	return 1;
-}
-#else /* !WINDOWS */
 int
 daemonized(void)
 {
@@ -1949,7 +1925,6 @@ daemonized(void)
 	debug3("already daemonized");
 	return 1;
 }
-#endif /* !WINDOWS */
 
 /*
  * Splits 's' into an argument vector. Handles quoted string and basic
@@ -1957,7 +1932,7 @@ daemonized(void)
  * and its members.
  */
 int
-argv_split(const char *s, int *argcp, char ***argvp)
+argv_split(const char *s, int *argcp, char ***argvp, int terminate_on_comment)
 {
 	int r = SSH_ERR_INTERNAL_ERROR;
 	int argc = 0, quote, i, j;
@@ -1970,7 +1945,8 @@ argv_split(const char *s, int *argcp, char ***argvp)
 		/* Skip leading whitespace */
 		if (s[i] == ' ' || s[i] == '\t')
 			continue;
-
+		if (terminate_on_comment && s[i] == '#')
+			break;
 		/* Start of a token */
 		quote = 0;
 
@@ -1983,7 +1959,8 @@ argv_split(const char *s, int *argcp, char ***argvp)
 			if (s[i] == '\\') {
 				if (s[i + 1] == '\'' ||
 				    s[i + 1] == '\"' ||
-				    s[i + 1] == '\\') {
+				    s[i + 1] == '\\' ||
+				    (quote == 0 && s[i + 1] == ' ')) {
 					i++; /* Skip '\' */
 					arg[j++] = s[i];
 				} else {
@@ -2075,6 +2052,36 @@ argv_assemble(int argc, char **argv)
 	sshbuf_free(buf);
 	sshbuf_free(arg);
 	return ret;
+}
+
+char *
+argv_next(int *argcp, char ***argvp)
+{
+	char *ret = (*argvp)[0];
+
+	if (*argcp > 0 && ret != NULL) {
+		(*argcp)--;
+		(*argvp)++;
+	}
+	return ret;
+}
+
+void
+argv_consume(int *argcp)
+{
+	*argcp = 0;
+}
+
+void
+argv_free(char **av, int ac)
+{
+	int i;
+
+	if (av == NULL)
+		return;
+	for (i = 0; i < ac; i++)
+		free(av[i]);
+	free(av);
 }
 
 /* Returns 0 if pid exited cleanly, non-zero otherwise */
@@ -2376,10 +2383,15 @@ parse_absolute_time(const char *s, uint64_t *tp)
 	return 0;
 }
 
+/* On OpenBSD time_t is int64_t which is long long. */
+#ifndef SSH_TIME_T_MAX
+# define SSH_TIME_T_MAX LLONG_MAX
+#endif
+
 void
 format_absolute_time(uint64_t t, char *buf, size_t len)
 {
-	time_t tt = t > INT_MAX ? INT_MAX : t; /* XXX revisit in 2038 :P */
+	time_t tt = t > SSH_TIME_T_MAX ? SSH_TIME_T_MAX : t;
 	struct tm tm;
 
 	localtime_r(&tt, &tm);
@@ -2390,11 +2402,7 @@ format_absolute_time(uint64_t t, char *buf, size_t len)
 int
 path_absolute(const char *path)
 {
-#ifdef WINDOWS        
-	return is_absolute_path(path);
-#else
 	return (*path == '/') ? 1 : 0;
-#endif
 }
 
 void
@@ -2507,9 +2515,6 @@ opt_array_append(const char *file, const int line, const char *directive,
 sshsig_t
 ssh_signal(int signum, sshsig_t handler)
 {
-#ifdef WINDOWS
-	return signal(signum, handler);
-#else
 	struct sigaction sa, osa;
 
 	/* mask all other signals while in handler */
@@ -2525,7 +2530,6 @@ ssh_signal(int signum, sshsig_t handler)
 		return SIG_ERR;
 	}
 	return osa.sa_handler;
-#endif // WINDOWS
 }
 
 int
@@ -2612,18 +2616,11 @@ subprocess(const char *tag, const char *command,
 		    av[0], strerror(errno));
 		goto restore_return;
 	}
-
 	if ((flags & SSH_SUBPROCESS_UNSAFE_PATH) == 0 &&
-#ifdef WINDOWS
-	    (check_secure_file_permission(av[0], pw, 1) != 0)) {
-		error("Permissions on %s:\"%s\" are too open", tag, av[0]);
-#else
 	    safe_path(av[0], &st, NULL, 0, errmsg, sizeof(errmsg)) != 0) {
 		error("Unsafe %s \"%s\": %s", tag, av[0], errmsg);
-#endif
 		goto restore_return;
 	}
-
 	/* Prepare to keep the child's stdout if requested */
 	if (pipe(p) == -1) {
 		error("%s: pipe: %s", tag, strerror(errno));
@@ -2635,37 +2632,6 @@ subprocess(const char *tag, const char *command,
 	if (restore_privs != NULL)
 		restore_privs();
 
-#ifdef FORK_NOT_SUPPORTED
-	{
-		posix_spawn_file_actions_t actions;
-		pid = -1;
-
-		if (posix_spawn_file_actions_init(&actions) != 0 ||
-			posix_spawn_file_actions_adddup2(&actions, p[1], STDOUT_FILENO) != 0)
-			fatal("posix_spawn initialization failed");
-		else {
-#ifdef WINDOWS
-			extern PSID get_sid(const char*);
-			/* If the user's SID is the System SID and sshd is running as system,
-			 * launch as a child process.
-			 */
-			if (IsWellKnownSid(get_sid(pw->pw_name), WinLocalSystemSid) && am_system()) {
-				debug("starting subprocess using posix_spawnp");
-				if (posix_spawnp((pid_t*)&pid, av[0], &actions, NULL, av, NULL) != 0)
-					fatal("posix_spawnp: %s", strerror(errno));
-			}
-			else
-#endif
-			{
-				debug("starting subprocess as user using __posix_spawn_asuser");
-				if (__posix_spawn_asuser((pid_t*)&pid, av[0], &actions, NULL, av, NULL, pw->pw_name) != 0)
-					fatal("posix_spawn_user: %s", strerror(errno));
-			}
-		}
-
-		posix_spawn_file_actions_destroy(&actions);
-	}
-#else
 	switch ((pid = fork())) {
 	case -1: /* error */
 		error("%s: fork: %s", tag, strerror(errno));
@@ -2736,7 +2702,7 @@ subprocess(const char *tag, const char *command,
 	default: /* parent */
 		break;
 	}
-#endif
+
 	close(p[1]);
 	if ((flags & SSH_SUBPROCESS_STDOUT_CAPTURE) == 0)
 		close(p[0]);
