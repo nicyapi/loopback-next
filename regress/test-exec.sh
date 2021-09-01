@@ -1,66 +1,7 @@
-#	$OpenBSD: test-exec.sh,v 1.81 2021/06/01 23:56:20 dtucker Exp $
+#	$OpenBSD: test-exec.sh,v 1.87 2021/09/01 00:50:27 dtucker Exp $
 #	Placed in the Public Domain.
 
 #SUDO=sudo
-
-# Unbreak GNU head(1)
-_POSIX2_VERSION=199209
-export _POSIX2_VERSION
-
-if [ "x$TEST_WINDOWS_SSH" != "x" ]; then
-	os="windows"
-fi
-
-if [ "$os" != "windows" ]; then
-	case `uname -s 2>/dev/null` in
-	OSF1*)
-		BIN_SH=xpg4
-		export BIN_SH
-		;;
-	CYGWIN*)
-		os=cygwin
-		;;
-	esac
-fi
-
-# If configure tells us to use a different egrep, create a wrapper function
-# to call it.  This means we don't need to change all the tests that depend
-# on a good implementation.
-if test "x${EGREP}" != "x"; then
-	egrep ()
-{
-	 ${EGREP} "$@"
-}
-fi
-
-if [ "$os" == "windows" ]; then
-	USER=$TEST_SSH_USER
-	USER_DOMAIN=$TEST_SSH_USER_DOMAIN
-	LOGNAME=$USER
-else
-	if [ -x /usr/ucb/whoami ]; then
-		USER=`/usr/ucb/whoami`
-	elif whoami >/dev/null 2>&1; then
-		USER=`whoami`
-	elif logname >/dev/null 2>&1; then
-		USER=`logname`
-	else
-		if [ -x /usr/ucb/whoami ]; then
-			USER=`/usr/ucb/whoami`
-		elif whoami >/dev/null 2>&1; then
-			USER=`whoami`
-		elif logname >/dev/null 2>&1; then
-			USER=`logname`
-		else
-			USER=`id -un`
-		fi
-	fi
-fi
-
-if test -z "$LOGNAME"; then
-	LOGNAME="${USER}"
-	export LOGNAME
-fi
 
 if [ ! -x "$TEST_SSH_ELAPSED_TIMES" ]; then
 	STARTTIME=`date '+%s'`
@@ -97,6 +38,46 @@ else
 	exit 2
 fi
 unset SSH_AUTH_SOCK
+
+# Portable-specific settings.
+
+if [ -x /usr/ucb/whoami ]; then
+	USER=`/usr/ucb/whoami`
+elif whoami >/dev/null 2>&1; then
+	USER=`whoami`
+elif logname >/dev/null 2>&1; then
+	USER=`logname`
+else
+	USER=`id -un`
+fi
+if test -z "$LOGNAME"; then
+	LOGNAME="${USER}"
+	export LOGNAME
+fi
+
+# Unbreak GNU head(1)
+_POSIX2_VERSION=199209
+export _POSIX2_VERSION
+
+case `uname -s 2>/dev/null` in
+OSF1*)
+	BIN_SH=xpg4
+	export BIN_SH
+	;;
+CYGWIN*)
+	os=cygwin
+	;;
+esac
+
+# If configure tells us to use a different egrep, create a wrapper function
+# to call it.  This means we don't need to change all the tests that depend
+# on a good implementation.
+if test "x${EGREP}" != "x"; then
+	egrep ()
+{
+	 ${EGREP} "$@"
+}
+fi
 
 SRC=`dirname ${SCRIPT}`
 
@@ -275,14 +256,15 @@ fi
 >$TEST_REGRESS_LOGFILE
 
 # Create wrapper ssh with logging.  We can't just specify "SSH=ssh -E..."
-# because sftp and scp don't handle spaces in arguments.
+# because sftp and scp don't handle spaces in arguments.  scp and sftp like
+# to use -q so we remove those to preserve our debug logging.  In the rare
+# instance where -q is desirable -qq is equivalent and is not removed.
 SSHLOGWRAP=$OBJ/ssh-log-wrapper.sh
-echo "#!/bin/sh" > $SSHLOGWRAP
-if [ "$os" == "windows" ]; then
-	echo "exec ${SSH} -T -E${TEST_SSH_LOGFILE} "'"$@"' >>$SSHLOGWRAP
-else
-	echo "exec ${SSH} -E${TEST_SSH_LOGFILE} "'"$@"' >>$SSHLOGWRAP
-fi
+cat >$SSHLOGWRAP <<EOD
+#!/bin/sh
+for i in "\$@";do shift;case "\$i" in -q):;; *) set -- "\$@" "\$i";;esac;done
+exec ${SSH} -E${TEST_SSH_LOGFILE} "\$@"
+EOD
 
 chmod a+rx $OBJ/ssh-log-wrapper.sh
 REAL_SSH="$SSH"
@@ -299,9 +281,6 @@ cat ${SSHAGENT_BIN} >${DATA}
 chmod u+w ${DATA}
 COPY=$OBJ/copy
 rm -f ${COPY}
-if [ "$os" == "windows" ]; then
-	EXEEXT=".exe"
-fi
 
 increase_datafile_size()
 {
@@ -316,11 +295,6 @@ export SSH_PKCS11_HELPER SSH_SK_HELPER
 #echo $SSH $SSHD $SSHAGENT $SSHADD $SSHKEYGEN $SSHKEYSCAN $SFTP $SFTPSERVER $SCP
 
 # Portable specific functions
-windows_path()
-{
-	cygpath -m $1
-}
-
 have_prog()
 {
 	saved_IFS="$IFS"
@@ -378,48 +352,36 @@ fi
 
 make_tmpdir ()
 {
-	if [ "$os" == "windows" ]; then
-		powershell.exe /c "New-Item -Path $OBJ\openssh-XXXXXXXX -ItemType Directory -Force" >/dev/null 2>&1
-		if [ $? -ne 0 ]; then
-			fatal "failed to create temporary directory"
-		fi
-	else
-		SSH_REGRESS_TMP="$($OBJ/mkdtemp openssh-XXXXXXXX)" || \
-			fatal "failed to create temporary directory"
-	fi
+	SSH_REGRESS_TMP="$($OBJ/mkdtemp openssh-XXXXXXXX)" || \
+	    fatal "failed to create temporary directory"
 }
 # End of portable specific functions
 
 stop_sshd ()
 {
-	# windows process can't be stopped using kill command so use stop-process
-	if [ "$os" == "windows" ]; then
-		powershell.exe /c "stop-process -Name sshd -Force" >/dev/null 2>&1
-	 else
-	 	if [ -f $PIDFILE ]; then
-			pid=`$SUDO cat $PIDFILE`
-			if [ "X$pid" = "X" ]; then
-				echo no sshd running
+	if [ -f $PIDFILE ]; then
+		pid=`$SUDO cat $PIDFILE`
+		if [ "X$pid" = "X" ]; then
+			echo no sshd running
+		else
+			if [ $pid -lt 2 ]; then
+				echo bad pid for sshd: $pid
 			else
-				if [ $pid -lt 2 ]; then
-					echo bad pid for sshd: $pid
-				else
-					$SUDO kill $pid
-					trace "wait for sshd to exit"
-					i=0;
-					while [ -f $PIDFILE -a $i -lt 5 ]; do
-						i=`expr $i + 1`
-						sleep $i
-					done
-					if test -f $PIDFILE; then
-						if $SUDO kill -0 $pid; then
-							echo "sshd didn't exit " \
-								"port $PORT pid $pid"
-						else
-							echo "sshd died without cleanup"
-						fi
-						exit 1
+				$SUDO kill $pid
+				trace "wait for sshd to exit"
+				i=0;
+				while [ -f $PIDFILE -a $i -lt 5 ]; do
+					i=`expr $i + 1`
+					sleep $i
+				done
+				if test -f $PIDFILE; then
+					if $SUDO kill -0 $pid; then
+						echo "sshd didn't exit " \
+						    "port $PORT pid $pid"
+					else
+						echo "sshd died without cleanup"
 					fi
+					exit 1
 				fi
 			fi
 		fi
@@ -429,19 +391,11 @@ stop_sshd ()
 # helper
 cleanup ()
 {
-	# windows process can't be stopped using kill command so use stop-process
-	if [ "$os" == "windows" ]; then
-		powershell.exe /c "stop-process -Name ssh-agent -Force" >/dev/null 2>&1
-		if [ "x$SSH_PID" != "x" ]; then
-			powershell.exe /c "stop-process -Id $SSH_PID -Force" >/dev/null 2>&1
-		fi
-	else
-		if [ "x$SSH_PID" != "x" ]; then
-			if [ $SSH_PID -lt 2 ]; then
-				echo bad pid for ssh: $SSH_PID
-			else
-				kill $SSH_PID
-			fi
+	if [ "x$SSH_PID" != "x" ]; then
+		if [ $SSH_PID -lt 2 ]; then
+			echo bad pid for ssh: $SSH_PID
+		else
+			kill $SSH_PID
 		fi
 	fi
 	if [ "x$SSH_REGRESS_TMP" != "x" ]; then
@@ -508,6 +462,14 @@ fatal ()
 	exit $RESULT
 }
 
+# Skip remaining tests in script.
+skip ()
+{
+	echo "SKIPPED: $@"
+	cleanup
+	exit $RESULT
+}
+
 RESULT=0
 PIDFILE=$OBJ/pidfile
 
@@ -528,7 +490,6 @@ cat << EOF > $OBJ/sshd_config
 	Subsystem	sftp	$SFTPSERVER
 EOF
 
-if [ "$os" != "windows" ]; then
 # This may be necessary if /usr/src and/or /usr/obj are group-writable,
 # but if you aren't careful with permissions then the unit tests could
 # be abused to locally escalate privileges.
@@ -559,7 +520,6 @@ bypass this check by setting TEST_SSH_UNSAFE_PERMISSIONS=1
 
 EOD
 	fi
-fi
 fi
 
 if [ ! -z "$TEST_SSH_MODULI_FILE" ]; then
@@ -632,25 +592,6 @@ maybe_filter_sk() {
 SSH_KEYTYPES=`$SSH -Q key-plain | maybe_filter_sk`
 SSH_HOSTKEY_TYPES=`$SSH -Q key-plain | maybe_filter_sk`
 
-if [ "$os" == "windows" ]; then
-	SSH_KEYTYPES=`echo $SSH_KEYTYPES | tr -d '\r','\n'`  # remove \r\n
-	SSH_HOSTKEY_TYPES=`echo $SSH_HOSTKEY_TYPES | tr -d '\r','\n'`  # remove \r\n
-	OBJ_WIN_FORMAT=`windows_path $OBJ`
-	first_key_type=${SSH_KEYTYPES%% *}
-	if [ "x$USER_DOMAIN" != "x" ]; then
-		# For domain user, create folders
-		if [ ! -d $OBJ/authorized_keys_$USER_DOMAIN ]; then
-			mkdir $OBJ/authorized_keys_$USER_DOMAIN
-		fi
-		if [ ! -d $OBJ/authorized_principals_$USER_DOMAIN ]; then
-			mkdir $OBJ/authorized_principals_$USER_DOMAIN
-		fi
-		if [ ! -d /var/run/principals_command_$USER_DOMAIN ]; then
-			mkdir /var/run/principals_command_$USER_DOMAIN
-		fi
-	fi
-fi
-
 for t in ${SSH_KEYTYPES}; do
 	# generate user key
 	if [ ! -f $OBJ/$t ] || [ ${SSHKEYGEN_BIN} -nt $OBJ/$t ]; then
@@ -675,22 +616,13 @@ for t in ${SSH_HOSTKEY_TYPES}; do
 	) >> $OBJ/known_hosts
 
 	# use key as host key, too
-	$SUDO cp $OBJ/$t $OBJ/host.$t
-	if [ "$os" == "windows" ]; then
-		# set the file permissions (ACLs) properly
-		powershell.exe /c "get-acl $OBJ_WIN_FORMAT/$t | set-acl $OBJ_WIN_FORMAT/host.$t"
-	fi
-
+	(umask 077; $SUDO cp $OBJ/$t $OBJ/host.$t)
 	echo HostKey $OBJ/host.$t >> $OBJ/sshd_config
 
 	# don't use SUDO for proxy connect
 	echo HostKey $OBJ/$t >> $OBJ/sshd_proxy
 done
-
-if [ "$os" == "windows" ]; then
-	# set the file permissions (ACLs) properly
-	powershell.exe /c "get-acl $OBJ_WIN_FORMAT/$first_key_type | set-acl $OBJ_WIN_FORMAT/authorized_keys_$USER"
-fi
+chmod 644 $OBJ/authorized_keys_$USER
 
 # Activate Twisted Conch tests if the binary is present
 REGRESS_INTEROP_CONCH=no
@@ -750,13 +682,7 @@ fi
 # create a proxy version of the client config
 (
 	cat $OBJ/ssh_config
-	if [ "$os" == "windows" ]; then
-		# TODO - having SSH_SK_HELPER is causing issues. Need to find a way.
-		# This is fine for now as we don't have FIDO enabled.
-		echo proxycommand  `windows_path ${SSHD}` -i -f $OBJ_WIN_FORMAT/sshd_proxy
-	else
-		echo proxycommand ${SUDO} env SSH_SK_HELPER=\"$SSH_SK_HELPER\" sh ${SRC}/sshd-log-wrapper.sh ${TEST_SSHD_LOGFILE} ${SSHD} -i -f $OBJ/sshd_proxy
-	fi
+	echo proxycommand ${SUDO} env SSH_SK_HELPER=\"$SSH_SK_HELPER\" sh ${SRC}/sshd-log-wrapper.sh ${TEST_SSHD_LOGFILE} ${SSHD} -i -f $OBJ/sshd_proxy
 ) > $OBJ/ssh_proxy
 
 # check proxy config
@@ -766,15 +692,8 @@ start_sshd ()
 {
 	# start sshd
 	$SUDO ${SSHD} -f $OBJ/sshd_config "$@" -t || fatal "sshd_config broken"
-	if [ "$os" == "windows" ]; then
-		# In windows, we need to explicitly remove the sshd pid file.
-		rm -rf $PIDFILE
-		#TODO (Code BUG) : -E<sshd.log> is writing the data the cygwin terminal.
-		${SSHD} -f $OBJ/sshd_config "$@" &
-	else
-		$SUDO env SSH_SK_HELPER="$SSH_SK_HELPER" \
-	    	${SSHD} -f $OBJ/sshd_config "$@" -E$TEST_SSHD_LOGFILE
-	fi
+	$SUDO env SSH_SK_HELPER="$SSH_SK_HELPER" \
+	    ${SSHD} -f $OBJ/sshd_config "$@" -E$TEST_SSHD_LOGFILE
 
 	trace "wait for sshd"
 	i=0;
