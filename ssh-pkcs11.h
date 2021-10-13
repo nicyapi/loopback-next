@@ -35,6 +35,10 @@ struct sshkey *
 	    u_int32_t *);
 #endif
 
+struct sshkey * lookup_key(const struct sshkey *);
+void            add_key(struct sshkey *, char *);
+void            del_all_keys();
+
 #if !defined(WITH_OPENSSL) && defined(ENABLE_PKCS11)
 #undef ENABLE_PKCS11
 #endif
