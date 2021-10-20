@@ -56,7 +56,6 @@
 #ifdef HAVE_PATHS_H
 # include <paths.h>
 #include <pwd.h>
-#include <grp.h>
 #endif
 #ifdef SSH_TUN_OPENBSD
 #include <net/if.h>
