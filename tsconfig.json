@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es5",
+    "lib": ["es2020", "dom"],
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noEmit": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "allowSyntheticDefaultImports": true,
+    "noErrorTruncation": false,
+    "allowJs": true,
+    "paths": {
+      "@material-ui/core": ["./packages/material-ui/src"],
+      "@material-ui/core/*": ["./packages/material-ui/src/*"],
+      "@material-ui/lab": ["./packages/material-ui-lab/src"],
+      "@material-ui/lab/*": ["./packages/material-ui-lab/src/*"],
+      "@material-ui/styled-engine": ["./packages/material-ui-styled-engine/src"],
+      "@material-ui/styled-engine/*": ["./packages/material-ui-styled-engine/src/*"],
+      "@material-ui/styled-engine-sc": ["./packages/material-ui-styled-engine-sc/src"],
+      "@material-ui/styled-engine-sc/*": ["./packages/material-ui-styled-engine-sc/src/*"],
+      "@material-ui/styles": ["./packages/material-ui-styles/src"],
+      "@material-ui/styles/*": ["./packages/material-ui-styles/src/*"],
+      "@material-ui/system": ["./packages/material-ui-system/src"],
+      "@material-ui/private-theming": ["./packages/material-ui-private-theming/src"],
+      "@material-ui/private-theming/*": ["./packages/material-ui-private-theming/src/*"],
+      "@material-ui/types": ["./packages/material-ui-types"],
+      "@material-ui/unstyled": ["./packages/material-ui-unstyled/src"],
+      "@material-ui/unstyled/*": ["./packages/material-ui-unstyled/src/*"],
+      "@material-ui/docs": ["./packages/material-ui-docs/src"],
+      "@material-ui/docs/*": ["./packages/material-ui-docs/src/*"],
+      "test/*": ["./test/*"],
+      "typescript-to-proptypes": ["./packages/typescript-to-proptypes/src"]
+    },
+    // Otherwise we get react-native typings which conflict with dom.lib.
+    "types": ["node", "react"]
+  },
+  "exclude": ["**/.*/", "**/build", "**/node_modules", "docs/export"]
+}

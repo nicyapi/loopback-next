@@ -1,84 +1,182 @@
-# Portable OpenSSH
+<p align="center">
+  <a href="https://material-ui.com/" rel="noopener" target="_blank"><img width="150" src="https://material-ui.com/static/logo.svg" alt="Material-UI logo"></a></p>
+</p>
 
-[![C/C++ CI](https://github.com/openssh/openssh-portable/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/openssh/openssh-portable/actions/workflows/c-cpp.yml)
-[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/openssh.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:openssh)
+<h1 align="center">Material-UI</h1>
 
-OpenSSH is a complete implementation of the SSH protocol (version 2) for secure remote login, command execution and file transfer. It includes a client ``ssh`` and server ``sshd``, file transfer utilities ``scp`` and ``sftp`` as well as tools for key generation (``ssh-keygen``), run-time key storage (``ssh-agent``) and a number of supporting programs.
+<div align="center">
 
-This is a port of OpenBSD's [OpenSSH](https://openssh.com) to most Unix-like operating systems, including Linux, OS X and Cygwin. Portable OpenSSH polyfills OpenBSD APIs that are not available elsewhere, adds sshd sandboxing for more operating systems and includes support for OS-native authentication and auditing (e.g. using PAM).
+Quickly build beautiful [React](https://reactjs.org/) apps. Material-UI is a simple and customizable component library to build faster, beautiful, and more accessible React applications. Follow your own design system, or start with [Material Design](https://material.io/design/introduction/).
+
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mui-org/material-ui/blob/master/LICENSE)
+[![npm latest package](https://img.shields.io/npm/v/@material-ui/core/latest.svg)](https://www.npmjs.com/package/@material-ui/core)
+[![npm next package](https://img.shields.io/npm/v/@material-ui/core/next.svg)](https://www.npmjs.com/package/@material-ui/core)
+[![npm downloads](https://img.shields.io/npm/dm/@material-ui/core.svg)](https://www.npmjs.com/package/@material-ui/core)
+[![CircleCI](https://img.shields.io/circleci/project/github/mui-org/material-ui/next.svg)](https://app.circleci.com/pipelines/github/mui-org/material-ui?branch=next)
+[![Coverage Status](https://img.shields.io/codecov/c/github/mui-org/material-ui/next.svg)](https://codecov.io/gh/mui-org/material-ui/branch/next)
+[![Follow on Twitter](https://img.shields.io/twitter/follow/MaterialUI.svg?label=follow+Material-UI)](https://twitter.com/MaterialUI)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=mui-org/material-ui)](https://dependabot.com)
+[![Average time to resolve an issue](https://isitmaintained.com/badge/resolution/mui-org/material-ui.svg)](https://isitmaintained.com/project/mui-org/material-ui 'Average time to resolve an issue')
+[![Crowdin](https://badges.crowdin.net/material-ui-docs/localized.svg)](https://translate.material-ui.com/project/material-ui-docs)
+[![Open Collective backers and sponsors](https://img.shields.io/opencollective/all/material-ui)](https://opencollective.com/material-ui)
+
+</div>
+
+## Installation
+
+Material-UI is available as an [npm package](https://www.npmjs.com/package/@material-ui/core).
+
+**[Stable channel v4](https://material-ui.com/)**
+
+```sh
+// with npm
+npm install @material-ui/core
+
+// with yarn
+yarn add @material-ui/core
+```
+
+⚠️ All ongoing work has moved to v5. The development of v4 is limited to important bug fixes, security patches and easing the upgrade path to v5.
+
+**[Alpha channel v5](https://next.material-ui.com/)**
+
+```sh
+// with npm
+npm install @material-ui/core@next @emotion/react @emotion/styled
+
+// with yarn
+yarn add @material-ui/core@next @emotion/react @emotion/styled
+```
+
+<details>
+  <summary>Older versions</summary>
+
+- **[v3.x](https://v3.material-ui.com/)** ([Migration from v3 to v4](https://material-ui.com/guides/migration-v3/))
+- **[v0.x](https://v0.material-ui.com/)** ([Migration to v1](https://material-ui.com/guides/migration-v0x/))
+
+</details>
+
+Please note that `@next` will only point to pre-releases; to get the latest stable release use `@latest` instead.
+
+## Who sponsors Material-UI?
+
+### Diamond 💎
+
+<p style="display: flex; justify-content: center;">
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="octopus" href="https://octopus.com/?utm_source=materialui&utm_medium=referral" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img height="128" width="128" src="https://avatars3.githubusercontent.com/u/1287123?s=256" alt="octopus" title="Repeatable, reliable deployments" loading="lazy" /></a>
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="doit-intl" href="https://www.doit-intl.com/?utm_source=materialui&utm_medium=referral" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img height="128" width="128" src="https://avatars3.githubusercontent.com/u/8424863?s=256" alt="doit-intl" title="Management Platform for Google Cloud and AWS" loading="lazy" /></a>
+</p>
+
+Diamond Sponsors are those who have pledged \$1,500/month or more to Material-UI.
+
+### Gold 🏆
+
+via [Patreon](https://www.patreon.com/oliviertassinari)
+
+<p style="display: flex; justify-content: center;">
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="tidelift" href="https://tidelift.com/subscription/pkg/npm-material-ui?utm_source=npm-material-ui&utm_medium=referral&utm_campaign=homepage" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img height="96" width="96" src="https://github.com/tidelift.png?size=96" srcset="https://github.com/tidelift.png?size=192 2x" alt="tidelift" title="Enterprise-ready open source software" loading="lazy" /></a>
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="bitsrc" href="https://bit.dev" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img height="96" width="96" src="https://github.com/teambit.png?size=96" srcset="https://github.com/teambit.png?size=192 2x" alt="bitsrc" title="The fastest way to share code" loading="lazy" /></a>
+</p>
+
+via [OpenCollective](https://opencollective.com/material-ui)
+
+<p style="display: flex; justify-content: center; flex-wrap: wrap;">
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="textemall" href="https://www.text-em-all.com" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img src="https://images.opencollective.com/callemall/a6946da/logo/96.png" srcset="https://images.opencollective.com/callemall/a6946da/logo/192.png 2x" alt="call-em-all" title="Mass Text Messaging & Automated Calling" height="96" width="96" loading="lazy"></a>
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="canadacasino" href="https://www.canadacasino.ca/" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img height="96" width="96" src="https://images.opencollective.com/canadacasino/5b19004/logo/96.png" srcset="https://images.opencollective.com/canadacasino/5b19004/logo/192.png 2x" alt="canadacasino" loading="lazy" /></a>
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="hoodiebees" href="https://hoodiebees.com/" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img height="96" width="96" src="https://images.opencollective.com/hoodiebees1/617b451/logo/96.png" srcset="https://images.opencollective.com/hoodiebees1/617b451/logo/192.png 2x" alt="hoodiebees" loading="lazy" /></a>
+</p>
+
+Direct
+
+<p style="display: flex; justify-content: center; flex-wrap: wrap;">
+  <a data-ga-event-category="sponsor" data-ga-event-action="logo" data-ga-event-label="elevator" href="https://www.elevatormag.com/" rel="noopener sponsored" target="_blank" style="margin-right: 16px;"><img src="https://material-ui.com/static/sponsors/elevator.png" alt="elevator" title="The dopest new hip hop, upcoming artsits, music news, culture, and style" height="57" width="191" loading="lazy"></a>
+</p>
+
+Gold Sponsors are those who have pledged \$500/month or more to Material-UI.
+
+### There is more!
+
+See the full list of [our backers](https://material-ui.com/discover-more/backers/).
+
+## Usage
+
+Here is a quick example to get you started, **it's all you need**:
+
+```jsx
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import Button from '@material-ui/core/Button';
+
+function App() {
+  return <Button variant="contained">Hello World</Button>;
+}
+
+ReactDOM.render(<App />, document.querySelector('#app'));
+```
+
+Yes, it's really all you need to get started as you can see in this live and interactive demo:
+
+[![Edit Button](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/4j7m47vlm4)
+
+## Questions
+
+For _how-to_ questions and other non-issues,
+please use [StackOverflow](https://stackoverflow.com/questions/tagged/material-ui) instead of GitHub issues.
+There is a StackOverflow tag called "material-ui" that you can use to tag your questions.
+
+## Examples
+
+Are you looking for an example project to get started?
+[We host some](https://material-ui.com/getting-started/example-projects/).
 
 ## Documentation
 
-The official documentation for OpenSSH are the man pages for each tool:
+Check out our [documentation website](https://material-ui.com/).
 
-* [ssh(1)](https://man.openbsd.org/ssh.1)
-* [sshd(8)](https://man.openbsd.org/sshd.8)
-* [ssh-keygen(1)](https://man.openbsd.org/ssh-keygen.1)
-* [ssh-agent(1)](https://man.openbsd.org/ssh-agent.1)
-* [scp(1)](https://man.openbsd.org/scp.1)
-* [sftp(1)](https://man.openbsd.org/sftp.1)
-* [ssh-keyscan(8)](https://man.openbsd.org/ssh-keyscan.8)
-* [sftp-server(8)](https://man.openbsd.org/sftp-server.8)
+## Premium Themes
 
-## Stable Releases
+You can find complete templates & themes in the [Material-UI store](https://material-ui.com/store/?utm_source=docs&utm_medium=referral&utm_campaign=readme-store).
 
-Stable release tarballs are available from a number of [download mirrors](https://www.openssh.com/portable.html#downloads). We recommend the use of a stable release for most users. Please read the [release notes](https://www.openssh.com/releasenotes.html) for details of recent changes and potential incompatibilities.
+## Contributing
 
-## Building Portable OpenSSH
+Read the [contributing guide](/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Material-UI.
 
-### Dependencies
+Notice that contributions go far beyond pull requests and commits.
+Although we love giving you the opportunity to put your stamp on Material-UI, we also are thrilled to receive a variety of [other contributions](https://material-ui.com/getting-started/faq/#material-ui-is-awesome-how-can-i-support-the-project).
 
-Portable OpenSSH is built using autoconf and make. It requires a working C compiler, standard library and headers.
+## Changelog
 
-``libcrypto`` from either [LibreSSL](https://www.libressl.org/) or [OpenSSL](https://www.openssl.org) may also be used, but OpenSSH may be built without it supporting a subset of crypto algorithms.
+If you have recently updated, please read the [changelog](https://github.com/mui-org/material-ui/releases) for details of what has changed.
 
-[zlib](https://www.zlib.net/) is optional; without it transport compression is not supported.
+## Roadmap
 
-FIDO security token support needs [libfido2](https://github.com/Yubico/libfido2) and its dependencies. Also, certain platforms and build-time options may require additional dependencies; see README.platform for details.
+The future plans and high priority features and enhancements can be found in the [roadmap](https://material-ui.com/discover-more/roadmap/) file.
 
-### Building a release
+## License
 
-Releases include a pre-built copy of the ``configure`` script and may be built using:
+This project is licensed under the terms of the
+[MIT license](/LICENSE).
 
-```
-tar zxvf openssh-X.YpZ.tar.gz
-cd openssh
-./configure # [options]
-make && make tests
-```
+## Sponsoring services
 
-See the [Build-time Customisation](#build-time-customisation) section below for configure options. If you plan on installing OpenSSH to your system, then you will usually want to specify destination paths.
+These great services sponsor Material-UI's core infrastructure:
 
-### Building from git
+[<img loading="lazy" alt="GitHub" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" height="25">](https://github.com/)
 
-If building from git, you'll need [autoconf](https://www.gnu.org/software/autoconf/) installed to build the ``configure`` script. The following commands will check out and build portable OpenSSH from git:
+GitHub allows us to host the Git repository.
 
-```
-git clone https://github.com/openssh/openssh-portable # or https://anongit.mindrot.org/openssh.git
-cd openssh-portable
-autoreconf
-./configure
-make && make tests
-```
+[<img loading="lazy" alt="Netlify" src="https://cdn.netlify.com/15ecf59b59c9d04b88097c6b5d2c7e8a7d1302d0/1b6d6/img/press/logos/full-logo-light.svg" height="30">](https://www.netlify.com/)
 
-### Build-time Customisation
+Netlify allows us to distribute the documentation.
 
-There are many build-time customisation options available. All Autoconf destination path flags (e.g. ``--prefix``) are supported (and are usually required if you want to install OpenSSH).
+[<img loading="lazy" alt="CrowdIn" src="https://support.crowdin.com/assets/logos/crowdin-logo1-small.png" height="30">](https://crowdin.com/)
 
-For a full list of available flags, run ``configure --help`` but a few of the more frequently-used ones are described below. Some of these flags will require additional libraries and/or headers be installed.
+CrowdIn allows us to translate the documentation.
 
-Flag | Meaning
---- | ---
-``--with-pam`` | Enable [PAM](https://en.wikipedia.org/wiki/Pluggable_authentication_module) support. [OpenPAM](https://www.openpam.org/), [Linux PAM](http://www.linux-pam.org/) and Solaris PAM are supported.
-``--with-libedit`` | Enable [libedit](https://www.thrysoee.dk/editline/) support for sftp.
-``--with-kerberos5`` | Enable Kerberos/GSSAPI support. Both [Heimdal](https://www.h5l.org/) and [MIT](https://web.mit.edu/kerberos/) Kerberos implementations are supported.
-``--with-selinux`` | Enable [SELinux](https://en.wikipedia.org/wiki/Security-Enhanced_Linux) support.
-``--with-security-key-builtin`` | Include built-in support for U2F/FIDO2 security keys. This requires [libfido2](https://github.com/Yubico/libfido2) be installed.
+[<img loading="lazy" alt="BrowserStack" src="https://www.browserstack.com/images/mail/browserstack-logo-footer.png" height="30">](https://www.browserstack.com/)
 
-## Development
+BrowserStack allows us to test in real browsers.
 
-Portable OpenSSH development is discussed on the [openssh-unix-dev mailing list](https://lists.mindrot.org/mailman/listinfo/openssh-unix-dev) ([archive mirror](https://marc.info/?l=openssh-unix-dev)). Bugs and feature requests are tracked on our [Bugzilla](https://bugzilla.mindrot.org/).
+[<img loading="lazy" alt="CodeCov" src="https://github.com/codecov.png?size=70" width="35" height="35">](https://codecov.io/)
 
-## Reporting bugs
-
-_Non-security_ bugs may be reported to the developers via [Bugzilla](https://bugzilla.mindrot.org/) or via the mailing list above. Security bugs should be reported to [openssh@openssh.com](mailto:openssh.openssh.com).
+CodeCov allows us to monitor the test coverage.
